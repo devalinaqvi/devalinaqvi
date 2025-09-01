@@ -84,8 +84,8 @@ timeline
 
 ## 📈 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=techknowch&show_icons=true&theme=radical)  
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=techknowch&layout=compact&theme=radical)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=techknowasia&show_icons=true&theme=radical)  
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=techknowasia&layout=compact&theme=radical)
 
 ---
 
