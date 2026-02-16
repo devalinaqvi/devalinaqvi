@@ -9,6 +9,6 @@
 
 ## 📈 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=devalinaqvi&show_icons=true&theme=radical)
+![Pranesh's GitHub stats](https://github-readme-stats-fast.vercel.app/api?username=devalinaqvi&show_icons=true&theme=dark&include_all_commits=true)
 
 ---
