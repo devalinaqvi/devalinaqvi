@@ -1,25 +1,66 @@
 #!/usr/bin/env python3
-"""Stamp cache-busting versions onto same-origin asset URLs in index.html.
+"""Stamp cache-busting versions onto every same-origin asset URL in index.html.
 
-The server sends `Cache-Control: public, max-age=2592000, immutable` for static
-files. That is only safe when the URL changes whenever the bytes change — with
-a fixed name like styles.css, browsers and the CDN keep serving the old copy
-for 30 days and never revalidate.
+The origin sends `Cache-Control: public, max-age=2592000, immutable` for static
+files. That is only safe when the URL changes whenever the bytes change. With a
+fixed name like styles.css or assets/og.jpg, Cloudflare and visitors' browsers
+keep serving the old copy for 30 days and never revalidate — which is exactly
+how the redesign shipped with the previous stylesheet still attached.
 
-Run this after editing styles.css / script.js / favicon.svg and before deploying.
+Covers plain href/src, srcset candidates, and absolute URLs in meta tags
+(og:image, twitter:image), so social scrapers refetch the card too.
+
+Run after changing any of these files and before deploying. Idempotent.
 """
-import hashlib, pathlib, re
+import hashlib
+import pathlib
+import re
 
 HTML = pathlib.Path("index.html")
-ASSETS = ["styles.css", "script.js", "favicon.svg"]
+SITE = "https://devali.cloud/"
+
+ASSETS = [
+    "styles.css",
+    "script.js",
+    "favicon.svg",
+    "assets/og.jpg",
+    "assets/portrait-344.jpg",
+    "assets/portrait-344.webp",
+    "assets/portrait-688.jpg",
+    "assets/portrait-688.webp",
+]
 
 html = HTML.read_text()
-for name in ASSETS:
-    digest = hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()[:8]
-    # Match the asset in href="" / src="", with or without an existing ?v=
-    pattern = re.compile(r'((?:href|src)=")' + re.escape(name) + r'(?:\?v=[0-9a-f]+)?(")')
-    html, n = pattern.subn(lambda m: f"{m.group(1)}{name}?v={digest}{m.group(2)}", html)
-    print(f"  {name:14s} v={digest}  ({n} reference{'s' if n != 1 else ''})")
+total = 0
 
-HTML.write_text(html)
-print("index.html stamped")
+# Structured data must keep stable canonical image URLs: search engines use them
+# as identifiers, and a hash that changes every deploy just forces a re-crawl.
+# Caching is a browser/CDN concern, so only the rendered markup gets stamped.
+LD = re.compile(r'(<script type="application/ld\+json">.*?</script>)', re.S)
+parts = LD.split(html)
+
+for name in ASSETS:
+    path = pathlib.Path(name)
+    if not path.exists():
+        print(f"  {name:26s} MISSING — skipped")
+        continue
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()[:8]
+
+    # Every occurrence of the path, relative or absolute, with any existing ?v=
+    # replaced rather than appended to.
+    pattern = re.compile(
+        r"(" + re.escape(SITE) + r"|(?<=[\"'\s,]))"
+        + re.escape(name)
+        + r"(?:\?v=[0-9a-f]+)?(?=[\"'\s,])"
+    )
+    n = 0
+    for i, part in enumerate(parts):
+        if LD.fullmatch(part):
+            continue                      # leave the JSON-LD block untouched
+        parts[i], hits = pattern.subn(lambda m: f"{m.group(1)}{name}?v={digest}", part)
+        n += hits
+    total += n
+    print(f"  {name:26s} v={digest}  ({n} reference{'s' if n != 1 else ''})")
+
+HTML.write_text("".join(parts))
+print(f"index.html stamped — {total} URLs (JSON-LD left canonical)")
