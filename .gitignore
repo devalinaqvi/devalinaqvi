@@ -4,7 +4,7 @@
 # Source masters: the full-resolution originals the portrait derivatives and
 # the OG card are generated from. Not served, so they don't belong in a deploy.
 # Regenerate the derivatives with the crop/treatment script when one changes.
-assets/Picture.png
+assets/portrait-source.png
 
 # OS and editor artefacts
 .DS_Store
