@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Portfolio — Syed Muhammad Ali
+Sitemap: https://devali.cloud/sitemap.xml
