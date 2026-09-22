@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stamp cache-busting versions onto every same-origin asset URL in index.html.
+"""Stamp cache-busting versions onto every same-origin asset URL in each page.
 
 The origin sends `Cache-Control: public, max-age=2592000, immutable` for static
 files. That is only safe when the URL changes whenever the bytes change. With a
@@ -16,7 +16,7 @@ import hashlib
 import pathlib
 import re
 
-HTML = pathlib.Path("index.html")
+PAGES = [pathlib.Path("index.html"), pathlib.Path("work.html")]
 SITE = "https://devali.cloud/"
 
 ASSETS = [
@@ -30,37 +30,42 @@ ASSETS = [
     "assets/portrait-688.webp",
 ]
 
-html = HTML.read_text()
-total = 0
-
 # Structured data must keep stable canonical image URLs: search engines use them
 # as identifiers, and a hash that changes every deploy just forces a re-crawl.
 # Caching is a browser/CDN concern, so only the rendered markup gets stamped.
 LD = re.compile(r'(<script type="application/ld\+json">.*?</script>)', re.S)
-parts = LD.split(html)
 
-for name in ASSETS:
-    path = pathlib.Path(name)
-    if not path.exists():
-        print(f"  {name:26s} MISSING — skipped")
+for HTML in PAGES:
+    if not HTML.exists():
+        print(f"{HTML} MISSING — skipped")
         continue
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()[:8]
 
-    # Every occurrence of the path, relative or absolute, with any existing ?v=
-    # replaced rather than appended to.
-    pattern = re.compile(
-        r"(" + re.escape(SITE) + r"|(?<=[\"'\s,]))"
-        + re.escape(name)
-        + r"(?:\?v=[0-9a-f]+)?(?=[\"'\s,])"
-    )
-    n = 0
-    for i, part in enumerate(parts):
-        if LD.fullmatch(part):
-            continue                      # leave the JSON-LD block untouched
-        parts[i], hits = pattern.subn(lambda m: f"{m.group(1)}{name}?v={digest}", part)
-        n += hits
-    total += n
-    print(f"  {name:26s} v={digest}  ({n} reference{'s' if n != 1 else ''})")
+    parts = LD.split(HTML.read_text())
+    total = 0
+    print(f"{HTML}:")
 
-HTML.write_text("".join(parts))
-print(f"index.html stamped — {total} URLs (JSON-LD left canonical)")
+    for name in ASSETS:
+        path = pathlib.Path(name)
+        if not path.exists():
+            print(f"  {name:26s} MISSING — skipped")
+            continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()[:8]
+
+        # Every occurrence of the path, relative or absolute, with any existing
+        # ?v= replaced rather than appended to.
+        pattern = re.compile(
+            r"(" + re.escape(SITE) + r"|(?<=[\"'\s,]))"
+            + re.escape(name)
+            + r"(?:\?v=[0-9a-f]+)?(?=[\"'\s,])"
+        )
+        n = 0
+        for i, part in enumerate(parts):
+            if LD.fullmatch(part):
+                continue                  # leave the JSON-LD block untouched
+            parts[i], hits = pattern.subn(lambda m: f"{m.group(1)}{name}?v={digest}", part)
+            n += hits
+        total += n
+        print(f"  {name:26s} v={digest}  ({n} reference{'s' if n != 1 else ''})")
+
+    HTML.write_text("".join(parts))
+    print(f"  stamped — {total} URLs (JSON-LD left canonical)")

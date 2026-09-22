@@ -3,6 +3,10 @@
   <!-- Update the URL before deploying -->
   <url>
     <loc>https://devali.cloud/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-22</lastmod>
+  </url>
+  <url>
+    <loc>https://devali.cloud/work.html</loc>
+    <lastmod>2026-09-22</lastmod>
   </url>
 </urlset>
