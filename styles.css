@@ -59,6 +59,7 @@
 
   --shadow-raised: 0 1px 2px rgba(22, 25, 24, 0.04), 0 8px 24px -12px rgba(22, 25, 24, 0.16);
   --portrait-filter: none;
+  --media-filter: none;
 
   /* --- Type ------------------------------------------------------------ */
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -135,6 +136,9 @@
      read as a lit block against the dark ground. Tuned so the backdrop settles
      to a mid grey while the face keeps its luminosity. */
   --portrait-filter: brightness(0.72) contrast(1.08);
+  /* Work images are light-ground design covers; take the glare off without
+     muddying their text. */
+  --media-filter: brightness(0.86) contrast(1.02);
 
   color-scheme: dark;
 }
@@ -1716,8 +1720,121 @@ html.js [data-reveal].is-visible {
 /* --- Page hero: the index hero without the portrait column. --- */
 
 .page-hero {
-  max-width: 62rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(22rem, 30vw, 27rem);
+  column-gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
   padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.page-hero-text {
+  max-width: 62rem;
+}
+
+/* --- Span ledger: every project on this page as a bar on one 2020-2026
+   track. The hero's counterpart to the portrait on the home page. --- */
+
+.spanledger {
+  border-top: 1px solid var(--line-strong);
+  padding-top: var(--s-4);
+}
+
+.spanledger-caption {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: var(--s-4);
+}
+
+.spanledger ul {
+  display: grid;
+  row-gap: 0.875rem;
+}
+
+.spanledger li {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.spanledger .tl-name {
+  font-size: var(--t-xs);
+  font-weight: 500;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spanledger .tl-track {
+  position: relative;
+  height: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.spanledger .tl-bar {
+  position: absolute;
+  top: 0.125rem;
+  height: 0.25rem;
+  min-width: 0.5rem;
+  border-radius: 2px;
+  background: var(--line-strong);
+}
+
+.spanledger .is-running .tl-name {
+  color: var(--ink);
+}
+
+.spanledger .is-running .tl-bar {
+  background: var(--accent);
+}
+
+.spanledger .is-running .tl-bar::after {
+  content: "";
+  position: absolute;
+  right: -0.1875rem;
+  top: 50%;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  margin-top: -0.21875rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.spanledger .tl-axis {
+  position: relative;
+  height: 1.1rem;
+  margin-top: var(--s-3);
+  margin-left: 9.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+  font-feature-settings: "tnum" 1;
+}
+
+/* Ticks sit at their true positions on the 2020-2027 scale. */
+.spanledger .tl-axis span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.spanledger .tl-axis span:first-child {
+  transform: none;
+}
+
+@media (max-width: 60rem) {
+  .page-hero {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  .spanledger {
+    max-width: 36rem;
+  }
 }
 
 /* --- Case studies: the role ledger, given room for a full story. --- */
@@ -1828,6 +1945,26 @@ html.js [data-reveal].is-visible {
 .build {
   border-top: 1px solid var(--line-strong);
   padding-top: var(--s-5);
+}
+
+/* Cover image between the card's rule and its title, treated like the
+   portrait: hairline border, slight radius, calmed in dark mode. */
+.build-media {
+  margin-bottom: var(--s-4);
+}
+
+.build-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  filter: var(--media-filter);
+}
+
+html.theme-anim .build-media img {
+  transition: filter 260ms var(--ease);
 }
 
 .build-head {

@@ -12,6 +12,7 @@ Covers plain href/src, srcset candidates, and absolute URLs in meta tags
 
 Run after changing any of these files and before deploying. Idempotent.
 """
+import glob
 import hashlib
 import pathlib
 import re
@@ -28,7 +29,7 @@ ASSETS = [
     "assets/portrait-344.webp",
     "assets/portrait-688.jpg",
     "assets/portrait-688.webp",
-]
+] + sorted(glob.glob("assets/work/*.jpg") + glob.glob("assets/work/*.webp"))
 
 # Structured data must keep stable canonical image URLs: search engines use them
 # as identifiers, and a hash that changes every deploy just forces a re-crawl.

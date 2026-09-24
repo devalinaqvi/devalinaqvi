@@ -50,7 +50,7 @@
   <link rel="icon" href="favicon.svg?v=36d924cc" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=2c2d12ad">
+  <link rel="stylesheet" href="styles.css?v=63df66f9">
 
   <script type="application/ld+json">
   {
@@ -86,7 +86,9 @@
           { "@type": "ListItem", "position": 5, "item": { "@type": "SoftwareSourceCode", "name": "VPSentinel", "codeRepository": "https://github.com/devalinaqvi/vpsentinel", "programmingLanguage": "Go", "description": "Lightweight Linux/VPS security auditor shipping as a single static Go binary.", "author": { "@id": "https://devali.cloud/#person" } } },
           { "@type": "ListItem", "position": 6, "item": { "@type": "SoftwareSourceCode", "name": "VPSentinel-C++", "codeRepository": "https://github.com/devalinaqvi/vpsentinel-cpp", "programmingLanguage": "C++", "description": "Read-only Linux and VPS security scanner.", "author": { "@id": "https://devali.cloud/#person" } } },
           { "@type": "ListItem", "position": 7, "item": { "@type": "SoftwareSourceCode", "name": "Attack Surface Mapper", "codeRepository": "https://github.com/devalinaqvi/attack-surface-mapper", "programmingLanguage": "Python", "description": "Evidence-driven dependency capability maps for Composer, fully offline.", "author": { "@id": "https://devali.cloud/#person" } } },
-          { "@type": "ListItem", "position": 8, "item": { "@type": "WebSite", "name": "LearnSmart Australia", "url": "https://www.learnsmartaustralia.com.au", "description": "Marketing site for an Australian instructional-design and digital-learning agency, built in Laravel and exported to a static Netlify deployment.", "author": { "@id": "https://devali.cloud/#person" } } }
+          { "@type": "ListItem", "position": 8, "item": { "@type": "SoftwareSourceCode", "name": "EduLearn", "codeRepository": "https://github.com/devalinaqvi/edulearn", "programmingLanguage": "PHP", "description": "Online learning management system built with Laravel: courses, assignments, quizzes, and AI study notes.", "author": { "@id": "https://devali.cloud/#person" } } },
+          { "@type": "ListItem", "position": 9, "item": { "@type": "SoftwareSourceCode", "name": "ByteBazaar", "codeRepository": "https://github.com/devalinaqvi/byte-bazaar", "programmingLanguage": "PHP", "description": "Full-stack e-commerce application on a hand-rolled PHP MVC core.", "author": { "@id": "https://devali.cloud/#person" } } },
+          { "@type": "ListItem", "position": 10, "item": { "@type": "WebSite", "name": "LearnSmart Australia", "url": "https://www.learnsmartaustralia.com.au", "description": "Marketing site for an Australian instructional-design and digital-learning agency, built in Laravel and exported to a static Netlify deployment.", "author": { "@id": "https://devali.cloud/#person" } } }
         ]
       }
     ]
@@ -144,6 +146,7 @@
     <section class="hero" aria-labelledby="work-heading">
       <div class="container">
         <div class="page-hero">
+          <div class="page-hero-text">
           <p class="hero-eyebrow">
             <span class="rule" aria-hidden="true"></span>
             <span class="mono">Portfolio &middot; 2020 &mdash; 2026</span>
@@ -177,6 +180,26 @@
               </svg>
             </a>
           </div>
+          </div>
+
+          <!-- Every project below, as a bar on one track. Percentages are
+               years mapped onto 2020-2027. -->
+          <figure class="spanledger" data-reveal>
+            <figcaption class="spanledger-caption">Six years, at a glance</figcaption>
+            <ul>
+              <li><span class="tl-name">Client &amp; agency</span><span class="tl-track"><span class="tl-bar" style="left:14.3%;width:57.1%"></span></span><span class="u-hidden">2021 to 2024</span></li>
+              <li><span class="tl-name">HelpMeOrder</span><span class="tl-track"><span class="tl-bar" style="left:57.1%;width:21.5%"></span></span><span class="u-hidden">2024 to 2025</span></li>
+              <li><span class="tl-name">Rentive</span><span class="tl-track"><span class="tl-bar" style="left:71.4%;width:8.4%"></span></span><span class="u-hidden">January to July 2025</span></li>
+              <li><span class="tl-name">Tejarify</span><span class="tl-track"><span class="tl-bar" style="left:77.4%;width:2.4%"></span></span><span class="u-hidden">mid 2025</span></li>
+              <li class="is-running"><span class="tl-name">Ideal Bakers</span><span class="tl-track"><span class="tl-bar" style="left:82.1%;width:14%"></span></span><span class="u-hidden">late 2025 to now, live</span></li>
+              <li><span class="tl-name">ByteBazaar</span><span class="tl-track"><span class="tl-bar" style="left:83.3%;width:2.4%"></span></span><span class="u-hidden">late 2025</span></li>
+              <li class="is-running"><span class="tl-name">Security tools</span><span class="tl-track"><span class="tl-bar" style="left:92.9%;width:3.2%"></span></span><span class="u-hidden">2026 to now</span></li>
+              <li class="is-running"><span class="tl-name">EduLearn</span><span class="tl-track"><span class="tl-bar" style="left:94%;width:2.1%"></span></span><span class="u-hidden">2026, in progress</span></li>
+            </ul>
+            <div class="tl-axis" aria-hidden="true">
+              <span style="left:0">2020</span><span style="left:28.6%">22</span><span style="left:57.1%">24</span><span style="left:85.7%">26</span>
+            </div>
+          </figure>
         </div>
 
         <dl class="specs">
@@ -186,7 +209,7 @@
           </div>
           <div>
             <dt>Own products</dt>
-            <dd>6 platforms, end to end</dd>
+            <dd>8 platforms, end to end</dd>
           </div>
           <div>
             <dt>Client builds</dt>
@@ -294,6 +317,16 @@
 
           <div class="builds">
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/idealbakers-480.webp?v=b29146fd 480w, assets/work/idealbakers-960.webp?v=17568fec 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/idealbakers-480.jpg?v=d39d4544"
+                       srcset="assets/work/idealbakers-480.jpg?v=d39d4544 480w, assets/work/idealbakers-960.jpg?v=4943dac3 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="Ideal Sweets and Bakers cover: the live storefront homepage framed in a browser window."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3>Ideal Bakers</h3>
                 <p class="build-status is-live"><span class="status-dot" aria-hidden="true"></span>Live</p>
@@ -311,6 +344,68 @@
             </article>
 
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/edulearn-480.webp?v=3c0e411c 480w, assets/work/edulearn-960.webp?v=f2fbffe4 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/edulearn-480.jpg?v=929a52c2"
+                       srcset="assets/work/edulearn-480.jpg?v=929a52c2 480w, assets/work/edulearn-960.jpg?v=b602d9f2 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="EduLearn dashboard: continue-learning cards, upcoming assignments, and quiz windows."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
+              <div class="build-head">
+                <h3><a href="https://github.com/devalinaqvi/edulearn" rel="noopener" target="_blank">EduLearn<span class="u-hidden"> (opens in a new tab)</span></a></h3>
+                <p class="build-status">In progress</p>
+              </div>
+              <p>
+                An online learning management system: courses, lessons, assignments
+                with rubrics, timed quizzes, announcements, and queued AI study
+                notes — built as a classic server-rendered Laravel application with
+                private file storage.
+              </p>
+              <ul class="role-stack">
+                <li>Laravel 13</li><li>MySQL</li><li>Blade</li>
+              </ul>
+            </article>
+
+            <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/bytebazaar-480.webp?v=0810ac7a 480w, assets/work/bytebazaar-960.webp?v=4f132706 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/bytebazaar-480.jpg?v=07980d99"
+                       srcset="assets/work/bytebazaar-480.jpg?v=07980d99 480w, assets/work/bytebazaar-960.jpg?v=78405309 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="Byte Bazaar storefront on a laptop and phone: a tech-accessories catalogue with cart."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
+              <div class="build-head">
+                <h3><a href="https://github.com/devalinaqvi/byte-bazaar" rel="noopener" target="_blank">ByteBazaar<span class="u-hidden"> (opens in a new tab)</span></a></h3>
+                <p class="build-status">2025</p>
+              </div>
+              <p>
+                A full-stack e-commerce app written in plain PHP on a hand-rolled
+                MVC core — responsive storefront, admin dashboard, and secure
+                checkout, with dependency injection and no framework underneath.
+                Built to know exactly what the frameworks are doing for me.
+              </p>
+              <ul class="role-stack">
+                <li>PHP</li><li>MVC</li><li>MySQL</li>
+              </ul>
+            </article>
+
+            <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/helpmeorder-480.webp?v=2f655b97 480w, assets/work/helpmeorder-960.webp?v=bd3036eb 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/helpmeorder-480.jpg?v=21060fa2"
+                       srcset="assets/work/helpmeorder-480.jpg?v=21060fa2 480w, assets/work/helpmeorder-960.jpg?v=846f2992 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="HelpMeOrder cover: the Menu Matcher screen suggesting an order that fits a set budget."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3>HelpMeOrder</h3>
                 <p class="build-status">2024 &mdash; 25</p>
@@ -326,6 +421,16 @@
             </article>
 
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/leadscrapper-480.webp?v=07258331 480w, assets/work/leadscrapper-960.webp?v=85c86692 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/leadscrapper-480.jpg?v=dfcffabe"
+                       srcset="assets/work/leadscrapper-480.jpg?v=dfcffabe 480w, assets/work/leadscrapper-960.jpg?v=cf870743 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="LeadScrapper cover: the campaigns workspace with queued research campaigns and statuses."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3>LeadScrapper</h3>
                 <p class="build-status">Internal tool</p>
@@ -341,6 +446,16 @@
             </article>
 
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/learnsmart-480.webp?v=54197145 480w, assets/work/learnsmart-960.webp?v=1a028b8d 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/learnsmart-480.jpg?v=eb97a0d9"
+                       srcset="assets/work/learnsmart-480.jpg?v=eb97a0d9 480w, assets/work/learnsmart-960.jpg?v=1142d4f4 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="LearnSmart Australia cover: the agency site's hero, learning solutions designed for real impact."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3>LearnSmart Australia</h3>
                 <p class="build-status">Ready to launch</p>
@@ -384,6 +499,16 @@
 
           <div class="builds">
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/vpsentinelgo-480.webp?v=cc207209 480w, assets/work/vpsentinelgo-960.webp?v=7dcb5cc5 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/vpsentinelgo-480.jpg?v=45878fb2"
+                       srcset="assets/work/vpsentinelgo-480.jpg?v=45878fb2 480w, assets/work/vpsentinelgo-960.jpg?v=591efae0 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="VPSentinel cover: a terminal running a scan and printing ranked findings with suggested fixes."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3><a href="https://github.com/devalinaqvi/vpsentinel" rel="noopener" target="_blank">VPSentinel<span class="u-hidden"> (opens in a new tab)</span></a></h3>
                 <p class="build-status">Go</p>
@@ -400,6 +525,16 @@
             </article>
 
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/vpsentinel-480.webp?v=09ea572c 480w, assets/work/vpsentinel-960.webp?v=86b3f23d 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/vpsentinel-480.jpg?v=0cd257e7"
+                       srcset="assets/work/vpsentinel-480.jpg?v=0cd257e7 480w, assets/work/vpsentinel-960.jpg?v=419908d6 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="VPSentinel: read-only security auditing for Linux servers, with a terminal showing ranked findings."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3><a href="https://github.com/devalinaqvi/vpsentinel-cpp" rel="noopener" target="_blank">VPSentinel&#8209;C++<span class="u-hidden"> (opens in a new tab)</span></a></h3>
                 <p class="build-status">C++</p>
@@ -418,6 +553,16 @@
             </article>
 
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/asm-480.webp?v=25ec91dc 480w, assets/work/asm-960.webp?v=188d4e30 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/asm-480.jpg?v=e55bfb18"
+                       srcset="assets/work/asm-480.jpg?v=e55bfb18 480w, assets/work/asm-960.jpg?v=2c7d63b1 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="Dependency Attack Surface Mapper: capability-over-vulnerability report for a Composer project."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3><a href="https://github.com/devalinaqvi/attack-surface-mapper" rel="noopener" target="_blank">Attack Surface Mapper<span class="u-hidden"> (opens in a new tab)</span></a></h3>
                 <p class="build-status">Python</p>
@@ -435,6 +580,16 @@
             </article>
 
             <article class="build" data-reveal>
+              <figure class="build-media">
+                <picture>
+                  <source type="image/webp" srcset="assets/work/laravelpos-480.webp?v=e0cbaa72 480w, assets/work/laravelpos-960.webp?v=0aebb4b1 960w" sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)">
+                  <img src="assets/work/laravelpos-480.jpg?v=930bfdfd"
+                       srcset="assets/work/laravelpos-480.jpg?v=930bfdfd 480w, assets/work/laravelpos-960.jpg?v=0b28e7f7 960w"
+                       sizes="(min-width: 52rem) 27rem, calc(100vw - 2.5rem)"
+                       width="960" height="540" alt="laravel-pos cover: product list screen of the open-source point of sale, contributor work."
+                       loading="lazy" decoding="async">
+                </picture>
+              </figure>
               <div class="build-head">
                 <h3><a href="https://github.com/angkosal/laravel-pos" rel="noopener" target="_blank">laravel&#8209;pos<span class="u-hidden"> (opens in a new tab)</span></a></h3>
                 <p class="build-status">Contributor</p>
