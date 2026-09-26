@@ -17,7 +17,10 @@ import hashlib
 import pathlib
 import re
 
-PAGES = [pathlib.Path("index.html"), pathlib.Path("work.html"), pathlib.Path("resume.html")]
+PAGES = [pathlib.Path(p) for p in [
+    "index.html", "work.html", "resume.html", "notes.html",
+    "caching.html", "n-plus-one.html", "idempotency.html", "zero-downtime-migrations.html", "defense-in-depth.html",
+]]
 SITE = "https://devali.cloud/"
 
 ASSETS = [
@@ -31,6 +34,7 @@ ASSETS = [
     "assets/portrait-688.webp",
     "assets/Syed-Muhammad-Ali-CV.pdf",
     "assets/Syed-Muhammad-Ali-Resume-ATS.pdf",
+    "assets/apple-touch-icon.png",
 ] + sorted(glob.glob("assets/work/*.jpg") + glob.glob("assets/work/*.webp"))
 
 # Structured data must keep stable canonical image URLs: search engines use them

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add("js");
+      try {
+        var saved = localStorage.getItem("theme");
+        var dark = saved ? saved === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (dark) d.setAttribute("data-theme", "dark");
+      } catch (e) {}
+    })();
+  </script>
+  <title>Caching: store, evict, and survive the stampede</title>
+  <meta name="description" content="A practical guide to caching for backend engineers: the latency ladder, cache-aside vs write-through vs write-behind, eviction, and cache stampedes.">
+  <link rel="canonical" href="https://devali.cloud/caching.html">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Syed Muhammad Ali">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#efeee9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#101210" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Syed Muhammad Ali">
+  <meta property="og:title" content="Caching: store, evict, and survive the stampede — Syed Muhammad Ali">
+  <meta property="og:description" content="A practical guide to caching for backend engineers: the latency ladder, cache-aside vs write-through vs write-behind, eviction, and cache stampedes.">
+  <meta property="og:url" content="https://devali.cloud/caching.html">
+  <meta property="og:image" content="https://devali.cloud/assets/og.jpg?v=c0f45800">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Caching: store, evict, and survive the stampede — Syed Muhammad Ali">
+  <meta name="twitter:description" content="A practical guide to caching for backend engineers: the latency ladder, cache-aside vs write-through vs write-behind, eviction, and cache stampedes.">
+  <meta name="twitter:image" content="https://devali.cloud/assets/og.jpg?v=c0f45800">
+  <link rel="icon" href="favicon.svg?v=36d924cc" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=fb9703d0">
+  <link rel="alternate" type="application/rss+xml" title="Notes — Syed Muhammad Ali" href="feed.xml">
+  <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=1663040d">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://devali.cloud/caching.html#article",
+        "headline": "Caching: store, evict, and survive the stampede",
+        "description": "A practical guide to caching for backend engineers: the latency ladder, cache-aside vs write-through vs write-behind, eviction, and cache stampedes.",
+        "url": "https://devali.cloud/caching.html",
+        "datePublished": "2026-09-15",
+        "dateModified": "2026-09-15",
+        "keywords": "caching, cache-aside, write-through, write-behind, cache stampede, redis, eviction, LRU, backend performance",
+        "articleSection": "Performance",
+        "inLanguage": "en",
+        "author": {
+          "@id": "https://devali.cloud/#person"
+        },
+        "publisher": {
+          "@id": "https://devali.cloud/#person"
+        },
+        "mainEntityOfPage": "https://devali.cloud/caching.html",
+        "image": "https://devali.cloud/assets/og.jpg"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://devali.cloud/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Notes",
+            "item": "https://devali.cloud/notes.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Caching: store, evict, and survive the stampede",
+            "item": "https://devali.cloud/caching.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="container masthead-inner">
+      <a class="wordmark" href="index.html">
+        <span class="wordmark-mark" aria-hidden="true">A</span>
+        <span>Syed M. Ali</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Sections">
+        <ul class="nav-list">
+          <li><a href="index.html"><span class="nav-num" aria-hidden="true">&larr;</span>Home</a></li>
+          <li><a href="work.html"><span class="nav-num" aria-hidden="true">01</span>Work</a></li>
+          <li><a href="notes.html" aria-current="page"><span class="nav-num" aria-hidden="true">02</span>Notes</a></li>
+          <li><a href="resume.html"><span class="nav-num" aria-hidden="true">03</span>R&eacute;sum&eacute;</a></li>
+          <li><a href="index.html#contact"><span class="nav-num" aria-hidden="true">04</span>Contact</a></li>
+        </ul>
+      </nav>
+      <div class="masthead-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+        </button>
+        <a class="masthead-cta" href="mailto:dev.alinaqvi@gmail.com">Email me</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          Menu
+        </button>
+      </div>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+  <main id="main">
+    <section class="band" style="border-top:0">
+      <div class="container">
+        <article class="article">
+          <p class="crumbs"><a href="index.html">Home</a><span>/</span><a href="notes.html">Notes</a></p>
+          <div class="article-head" data-reveal>
+            <p class="mono">Performance &middot; 15 September 2026 &middot; 4 min read</p>
+            <h1>Caching: store, evict, and survive the stampede</h1>
+            <p class="article-dek">Everyone caches. Fewer can say which strategy they are on, or what happens when a popular key expires.</p>
+          </div>
+          <div class="prose" data-reveal>
+<p>The fastest query is the one you never make. That is the whole reason caching exists, and it is worth seeing the numbers before choosing a strategy.</p>
+<h2>Why caching exists at all</h2>
+<p>The gap between the fastest and slowest place you can read data is about eight orders of magnitude, and each step down costs roughly a hundred times the one above it:</p>
+<pre><code>L1 CPU cache        ~1 ns
+main memory       ~100 ns
+SSD random read    ~16 µs
+same-datacentre   ~500 µs
+disk seek           ~2 ms
+cross-continent   ~150 ms</code></pre>
+<p>Caching is mostly the discipline of not descending a step you could have avoided.</p>
+<h2>Then choose how writes behave</h2>
+<p><strong>Cache-aside</strong> writes to the database and lets the cache fill on read, so the first request for anything pays full price. <strong>Write-through</strong> updates both together, so reads are never stale and every write carries the cost. <strong>Write-behind</strong> writes to the cache and flushes later — the fastest option, and the one that loses data if the process dies before the flush. None is correct in general; they fail differently, and the job is picking the failure you can live with.</p>
+<h2>Then decide what to throw away</h2>
+<p>A cache with no eviction policy is a memory leak with better marketing. LRU evicts the least recently used entry, LFU the least frequently used, and a TTL evicts on a timer regardless. Most systems want a size bound and a TTL together.</p>
+<h2>And plan for the stampede</h2>
+<p>One hot key expires, ten thousand requests miss in the same millisecond, and the database gets its heaviest traffic at the moment it is least ready for it. Three fixes: jitter the TTL so keys do not expire together; use a single-flight lock so one miss does the refill while the rest wait; or serve the stale value while you refresh behind it.</p>
+<p>The uncomfortable part underneath all of it: a cache is a second copy of your data with its own rules about when it is allowed to be wrong. Most cache bugs are that fact turning up unannounced.</p>
+          </div>
+          <div class="article-foot">
+            <p class="mono">Syed Muhammad Ali &middot; Senior Software Engineer</p>
+            <p><a href="notes.html">&larr; All notes</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Syed Muhammad Ali — Senior Software Engineer</p>
+      <p class="footer-note">Hand-built · No framework · No tracking</p>
+      <p><a class="footer-top" href="#top">Back to top
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a></p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=7ac01984" defer></script>
+</body>
+</html>

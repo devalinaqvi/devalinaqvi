@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Notes — Syed Muhammad Ali</title>
+    <link>https://devali.cloud/notes.html</link>
+    <atom:link href="https://devali.cloud/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Short technical notes on backend engineering, databases, performance and operations.</description>
+    <language>en</language>
+    <item>
+      <title>Defense in depth: securing the VPS and the application</title>
+      <link>https://devali.cloud/defense-in-depth.html</link>
+      <guid>https://devali.cloud/defense-in-depth.html</guid>
+      <pubDate>Sat, 27 Sep 2026 09:00:00 +0000</pubDate>
+      <description>How to think about VPS and application security as layers of defense in depth — network edge, firewall, host, runtime, application and data — and why no single layer is enough.</description>
+      <category>Security</category>
+    </item>
+    <item>
+      <title>Zero-downtime schema changes: expand, then contract</title>
+      <link>https://devali.cloud/zero-downtime-migrations.html</link>
+      <guid>https://devali.cloud/zero-downtime-migrations.html</guid>
+      <pubDate>Sun, 27 Sep 2026 09:00:00 +0000</pubDate>
+      <description>Why renaming a database column in one migration takes production down, and the expand-contract pattern that ships schema changes with zero downtime.</description>
+      <category>Operations</category>
+    </item>
+    <item>
+      <title>Idempotency: the retry is not optional</title>
+      <link>https://devali.cloud/idempotency.html</link>
+      <guid>https://devali.cloud/idempotency.html</guid>
+      <pubDate>Wed, 23 Sep 2026 09:00:00 +0000</pubDate>
+      <description>Why retries are inevitable, how they cause duplicate charges, and how an idempotency key makes an operation safe to repeat.</description>
+      <category>APIs</category>
+    </item>
+    <item>
+      <title>The N+1 query: the loop that looks free</title>
+      <link>https://devali.cloud/n-plus-one.html</link>
+      <guid>https://devali.cloud/n-plus-one.html</guid>
+      <pubDate>Sat, 19 Sep 2026 09:00:00 +0000</pubDate>
+      <description>What the N+1 query problem is, why ORMs make it easy to write by accident, and how eager loading fixes it — with a Laravel example.</description>
+      <category>Databases</category>
+    </item>
+    <item>
+      <title>Caching: store, evict, and survive the stampede</title>
+      <link>https://devali.cloud/caching.html</link>
+      <guid>https://devali.cloud/caching.html</guid>
+      <pubDate>Tue, 15 Sep 2026 09:00:00 +0000</pubDate>
+      <description>A practical guide to caching for backend engineers: the latency ladder, cache-aside vs write-through vs write-behind, eviction, and cache stampedes.</description>
+      <category>Performance</category>
+    </item>
+  </channel>
+</rss>
