@@ -2126,12 +2126,111 @@ html.theme-anim .build-media img {
    19. Print
    -------------------------------------------------------------------------- */
 
+/* --------------------------------------------------------------------------
+   Résumé page — document details on top of the shared band/role/stack system.
+   -------------------------------------------------------------------------- */
+
+/* Hero right column: a compact at-a-glance card. */
+.doc-facts {
+  align-self: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--s-2) var(--s-5);
+}
+
+.doc-facts > div {
+  padding-block: var(--s-3);
+}
+
+.doc-facts > div + div {
+  border-top: 1px solid var(--line);
+}
+
+.doc-facts dt {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 0.35rem;
+}
+
+.doc-facts dd {
+  font-size: var(--t-sm);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Detailed experience bullets — the substance the homepage summarises. */
+.doc-points {
+  margin-top: var(--s-3);
+  max-width: var(--measure);
+}
+
+.doc-points li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink-2);
+  font-size: var(--t-sm);
+  line-height: 1.6;
+}
+
+.doc-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.doc-langs {
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+
+.doc-langs span {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-right: var(--s-3);
+}
+
+@media (max-width: 60rem) {
+  .doc-facts {
+    align-self: stretch;
+    max-width: 26rem;
+  }
+}
+
 @media print {
   .masthead,
   .skip-link,
   .hero-actions,
-  .scroll-progress {
+  .scroll-progress,
+  .rail,
+  .footer-top,
+  .doc-facts {
     display: none !important;
+  }
+
+  .spread {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   body {
